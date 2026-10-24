@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oculus Veridus Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans pb-10">
+
+  <!-- Üst Bar / Header -->
+  <header class="p-4 bg-slate-900/80 border-b border-slate-800 sticky top-0 backdrop-blur z-20 flex justify-between items-center">
+    <div>
+      <h1 class="text-xl font-black tracking-wider text-emerald-400">OCULUS VERIDUS</h1>
+      <p class="text-xs text-slate-400">Resmi Dağıtım Mağazası</p>
+    </div>
+    <div class="text-xs px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full font-mono">
+      Sürüm 1.0
+    </div>
+  </header>
+
+  <!-- Ana Mağaza Alanı -->
+  <main class="p-4 max-w-lg mx-auto space-y-4 mt-2">
+    
+    <div class="text-sm font-semibold text-slate-300 uppercase tracking-wider px-1">
+      Yüklenebilir Uygulamalar
+    </div>
+
+    <!-- 1. Uygulama Kartı: Slot Cup Hub -->
+    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3 shadow-lg">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-bold text-base text-white">Slot Cup Hub</h2>
+          <p class="text-xs text-slate-400">Futbol Analiz & Turnuva Yönetimi</p>
+        </div>
+        <span class="text-xs font-mono bg-slate-800 px-2 py-1 rounded text-slate-300">APK</span>
+      </div>
+
+      <!-- Bilgi ve Durum Metni -->
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800/60">
+        <span id="status-slotcup" class="text-xs text-emerald-400 font-medium">Hazır</span>
+        
+        <!-- Çalışan Tekil Buton -->
+        <button 
+          onclick="directDownload('https://senin-site-adresin.com/apks/slotcup.apk', 'Slot Cup', 'status-slotcup')"
+          class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-sm px-5 py-2 rounded-xl transition duration-150 shadow-md shadow-emerald-950">
+          İndir ve Kur
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Örnek Uygulama Kartı: Futbollandı / Diğer Projeler -->
+    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3 shadow-lg">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-bold text-base text-white">Futbollandı</h2>
+          <p class="text-xs text-slate-400">Canlı Fikstür ve Halı Saha Modülü</p>
+        </div>
+        <span class="text-xs font-mono bg-slate-800 px-2 py-1 rounded text-slate-300">APK</span>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800/60">
+        <span id="status-futbollandi" class="text-xs text-emerald-400 font-medium">Hazır</span>
+        
+        <button 
+          onclick="directDownload('https://senin-site-adresin.com/apks/futbollandi.apk', 'Futbollandı', 'status-futbollandi')"
+          class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-sm px-5 py-2 rounded-xl transition duration-150 shadow-md shadow-emerald-950">
+          İndir ve Kur
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Tek Çatı İndirme Motoru (JS) -->
+  <script>
+    function directDownload(fileUrl, appName, statusId) {
+      const statusElement = document.getElementById(statusId);
+      if (statusElement) {
+        statusElement.innerText = "İndirme başlatılıyor...";
+      }
+
+      // Android cihazlarda APK indirmeyi tetikleyen en garantili web metodu:
+      // Sayfayı kapatmadan veya dondurmadan doğrudan indirme akışını başlatır.
+      const tempLink = document.createElement('a');
+      tempLink.href = fileUrl;
+      tempLink.setAttribute('download', appName + '.apk');
+      tempLink.setAttribute('target', '_self');
+      document.body.appendChild(tempLink);
+      
+      // Tıklamayı simüle et
+      tempLink.click();
+      
+      // Temizlik yap
+      document.body.removeChild(tempLink);
+
+      setTimeout(() => {
+        if (statusElement) {
+          statusElement.innerText = "İndiriliyor (Üst paneli çekin)";
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
