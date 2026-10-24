@@ -3,104 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oculus Veridus Store</title>
+  <title>Oculus Firdus</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #f3f4f6;
+    }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans pb-10">
+<body class="min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
 
-  <!-- Üst Bar / Header -->
-  <header class="p-4 bg-slate-900/80 border-b border-slate-800 sticky top-0 backdrop-blur z-20 flex justify-between items-center">
-    <div>
-      <h1 class="text-xl font-black tracking-wider text-emerald-400">OCULUS VERIDUS</h1>
-      <p class="text-xs text-slate-400">Resmi Dağıtım Mağazası</p>
-    </div>
-    <div class="text-xs px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full font-mono">
-      Sürüm 1.0
+  <!-- Üst Menü -->
+  <header class="border-b border-gray-800 bg-gray-900/60 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">⚡</span>
+        <span class="font-bold text-xl tracking-tight text-white">Oculus Firdus</span>
+      </div>
+      <a href="https://raw.githubusercontent.com/msoy12/oculusfirdus2/main/Oculus.apk" 
+         download="Oculus.apk"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition shadow-lg shadow-emerald-900/30">
+        <span>Oculus APK İndir</span>
+      </a>
     </div>
   </header>
 
-  <!-- Ana Mağaza Alanı -->
-  <main class="p-4 max-w-lg mx-auto space-y-4 mt-2">
+  <!-- Ana İçerik Alanı -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
     
-    <div class="text-sm font-semibold text-slate-300 uppercase tracking-wider px-1">
-      Yüklenebilir Uygulamalar
-    </div>
+    <!-- Hero / İndirme Bölümü -->
+    <section class="bg-gradient-to-b from-gray-800/40 to-gray-900/40 border border-gray-800 rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden">
+      <span class="inline-block px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-full mb-4">
+        %100 ÜCRETSİZ & AÇIK KAYNAK
+      </span>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+        DOĞRUDAN TELEFON & WEB'E APK İNDİR
+      </h1>
+      <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto mb-6">
+        Aracı, komisyon veya hesap kopyaları yok. Bağımsız geliştiricilerin APK paketlerini ve açık kaynak uygulamalarını doğrudan edinin.
+      </p>
 
-    <!-- 1. Uygulama Kartı: Slot Cup Hub -->
-    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3 shadow-lg">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="font-bold text-base text-white">Slot Cup Hub</h2>
-          <p class="text-xs text-slate-400">Futbol Analiz & Turnuva Yönetimi</p>
-        </div>
-        <span class="text-xs font-mono bg-slate-800 px-2 py-1 rounded text-slate-300">APK</span>
-      </div>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <!-- Doğrudan Raw İndirme Butonu -->
+        <a id="apkDownloadBtn"
+           href="https://raw.githubusercontent.com/msoy12/oculusfirdus2/main/Oculus.apk" 
+           download="Oculus.apk"
+           target="_blank"
+           rel="noopener noreferrer"
+           onclick="handleDownloadFallback(event)"
+           class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-900/40 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span>Resmi APK / Projeyi Yayınla</span>
+        </a>
 
-      <!-- Bilgi ve Durum Metni -->
-      <div class="flex items-center justify-between pt-2 border-t border-slate-800/60">
-        <span id="status-slotcup" class="text-xs text-emerald-400 font-medium">Hazır</span>
-        
-        <!-- Çalışan Tekil Buton -->
-        <button 
-          onclick="directDownload('https://senin-site-adresin.com/apks/slotcup.apk', 'Slot Cup', 'status-slotcup')"
-          class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-sm px-5 py-2 rounded-xl transition duration-150 shadow-md shadow-emerald-950">
-          İndir ve Kur
+        <!-- Slot Cup Butonu -->
+        <button onclick="scrollToSlotCup()" class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium px-6 py-3 rounded-xl border border-gray-700 transition">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Canlı Futbol & Halı Saha Hub</span>
         </button>
       </div>
-    </div>
+    </section>
 
-    <!-- 2. Örnek Uygulama Kartı: Futbollandı / Diğer Projeler -->
-    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3 shadow-lg">
-      <div class="flex items-center justify-between">
+    <!-- Slot Cup Hub Bölümü -->
+    <section id="slotCupSection" class="border border-gray-800 bg-gray-900/30 rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-4 border-b border-gray-800 pb-3">
         <div>
-          <h2 class="font-bold text-base text-white">Futbollandı</h2>
-          <p class="text-xs text-slate-400">Canlı Fikstür ve Halı Saha Modülü</p>
+          <span class="text-xs text-emerald-400 font-semibold tracking-wider uppercase">Canlı Ekosistem</span>
+          <h2 class="text-xl font-bold text-white">Slot Cup Hub</h2>
+          <p class="text-xs text-gray-400 mt-1">Futbol turnuva ve maç takip arayüzü.</p>
         </div>
-        <span class="text-xs font-mono bg-slate-800 px-2 py-1 rounded text-slate-300">APK</span>
+        <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700">v1.0</span>
       </div>
 
-      <div class="flex items-center justify-between pt-2 border-t border-slate-800/60">
-        <span id="status-futbollandi" class="text-xs text-emerald-400 font-medium">Hazır</span>
-        
-        <button 
-          onclick="directDownload('https://senin-site-adresin.com/apks/futbollandi.apk', 'Futbollandı', 'status-futbollandi')"
-          class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-sm px-5 py-2 rounded-xl transition duration-150 shadow-md shadow-emerald-950">
-          İndir ve Kur
+      <div class="bg-gray-800/30 border border-gray-700/50 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <p class="text-sm font-semibold text-white">Halı Saha Fikstür ve Lig Tablosu</p>
+          <p class="text-xs text-gray-400">Aktif maçları ve puan durumunu web üzerinden anında incele.</p>
+        </div>
+        <button onclick="alert('Slot Cup turnuva motoru hazır ve aktif!')" class="w-full sm:w-auto px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition">
+          İncele
         </button>
       </div>
-    </div>
+    </section>
 
   </main>
 
-  <!-- Tek Çatı İndirme Motoru (JS) -->
+  <!-- Alt Bilgi -->
+  <footer class="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+    <p>Oculus Firdus Platformu &bull; Tüm Hakları Saklıdır.</p>
+  </footer>
+
+  <!-- İndirme ve Yönlendirme Kontrol Scripti -->
   <script>
-    function directDownload(fileUrl, appName, statusId) {
-      const statusElement = document.getElementById(statusId);
-      if (statusElement) {
-        statusElement.innerText = "İndirme başlatılıyor...";
+    function scrollToSlotCup() {
+      const section = document.getElementById('slotCupSection');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
       }
+    }
 
-      // Android cihazlarda APK indirmeyi tetikleyen en garantili web metodu:
-      // Sayfayı kapatmadan veya dondurmadan doğrudan indirme akışını başlatır.
-      const tempLink = document.createElement('a');
-      tempLink.href = fileUrl;
-      tempLink.setAttribute('download', appName + '.apk');
-      tempLink.setAttribute('target', '_self');
-      document.body.appendChild(tempLink);
+    // WebView'lerin dosya indirmeyi yutmasını engelleyen tetikleyici
+    function handleDownloadFallback(e) {
+      const apkRawUrl = "https://raw.githubusercontent.com/msoy12/oculusfirdus2/main/Oculus.apk";
       
-      // Tıklamayı simüle et
-      tempLink.click();
-      
-      // Temizlik yap
-      document.body.removeChild(tempLink);
-
+      // Eğer telefon içindeki WebView standart tıklamayı yakalayamazsa doğrudan sayfayı hedefe iter
       setTimeout(() => {
-        if (statusElement) {
-          statusElement.innerText = "İndiriliyor (Üst paneli çekin)";
-        }
-      }, 1000);
+        window.location.href = apkRawUrl;
+      }, 250);
     }
   </script>
-
 </body>
 </html>
